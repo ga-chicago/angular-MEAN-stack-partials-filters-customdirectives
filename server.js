@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 
 require('./db/db')
+
+app.use(bodyParser.json());
 
 const todoController = require('./controllers/ToDoController')
 app.use('/todo', todoController);

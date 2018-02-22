@@ -5,4 +5,8 @@ router.get('/', (req, res) => {
 	res.send('todo controller')
 })
 
+router.post('/', (req, res) => {
+	res.json(req.body);
+})
+
 module.exports = router;
