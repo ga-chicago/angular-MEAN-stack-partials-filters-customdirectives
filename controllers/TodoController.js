@@ -3,7 +3,9 @@ const router = express.Router();
 const Todo = require('../models/TodoModel.js');
 
 router.get('/', (req, res) => {
-	res.send('todo controller')
+	Todo.find({}, (err, foundTodos) => {
+		res.json(foundTodos)
+	})
 })
 
 router.post('/', (req, res) => {
