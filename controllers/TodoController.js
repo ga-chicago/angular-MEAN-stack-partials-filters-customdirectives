@@ -14,4 +14,10 @@ router.post('/', (req, res) => {
 	})
 })
 
+router.delete('/:id', (req, res) => {
+	Todo.findByIdAndRemove(req.params.id, (err, deletedTodo) => {
+		res.json(deletedTodo)
+	})
+});
+
 module.exports = router;
