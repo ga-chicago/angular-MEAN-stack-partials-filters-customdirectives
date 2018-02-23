@@ -25,6 +25,7 @@ app.controller('MyController', ['$http', function($http) {
 			// console.log(this)
 			controller.description = '';
 			controller.complete = false
+			controller.getTodos()
 		}, function(error) {
 			console.error(error)
 		})
