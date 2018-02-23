@@ -42,9 +42,28 @@ app.controller('MyController', ['$http', function($http) {
 		}, function(err) {
 			console.error(err)
 		})
-	}
+	}//IIFE
 	this.getTodos() // run funcction aimmediately 
 
+	this.updateTodo = function(todo) {
+		todo.complete = !todo.complete;
+
+
+		$http({
+			method: 'PUT',
+			url: '/todo/' + todo._id,
+			data: {
+				description: todo.description,
+				complete: todo.complete
+			}
+		}).then(function(res) {
+			controller.getTodos()
+		}, function(err) {
+			console.error(err)
+		})
+
+	}
 
 
 }])
+

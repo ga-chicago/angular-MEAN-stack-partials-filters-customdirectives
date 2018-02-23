@@ -15,7 +15,11 @@
 	</form>
 
 	<ul>
-		<li ng-repeat="todo in ctrl.todos" ng-class="(todo.complete)?'complete':''">{{todo.description}}</li>
+		<li 
+			ng-repeat="todo in ctrl.todos" 
+			ng-click="ctrl.updateTodo(todo)"
+			ng-class="(todo.complete)?'complete':''">
+		{{todo.description}}</li>
 	</ul>
 
 </body>
