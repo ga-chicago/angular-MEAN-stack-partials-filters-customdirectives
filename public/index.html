@@ -6,25 +6,57 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 </head>
-<body ng-controller="MyController as ctrl">
-	{{ ctrl.msg }}
-	<form ng-submit="ctrl.createTodo()">
-		<input ng-model="ctrl.description" type="text" placeholder="Enter todo here"><br />
-		Complete: <input type="checkbox" ng-model="ctrl.complete" />
-		<input type="submit" value="Create new todo">		
-	</form>
+<body>
+	<div ng-controller="MyController as ctrl">
+		{{ ctrl.msg }}
+		<form ng-submit="ctrl.createTodo()">
+			<input ng-model="ctrl.description" type="text" placeholder="Enter todo here"><br />
+			Complete: <input type="checkbox" ng-model="ctrl.complete" />
+			<input type="submit" value="Create new todo">		
+		</form>
 
-	<ul>
-		<li ng-repeat="todo in ctrl.todos track by $index">
-			<span ng-click="ctrl.updateTodo(todo, true)" ng-class="(todo.complete)?'complete':''">
-			{{todo.description}}</span>
-			<a href="" ng-click="ctrl.showEditor(todo)">Edit</a>
-			<a href="" ng-click="ctrl.deleteTodo(todo)">Delete</a>
-			<form ng-if="todo.editing" ng-submit="ctrl.updateTodo(todo, false)">
-				<input type="text" ng-model="todo.description">
-			</form>
-		</li>
-	</ul>
+		<ul>
+			<li ng-repeat="todo in ctrl.todos | orderBy:'-description'">
+				<span ng-click="ctrl.updateTodo(todo, true)" ng-class="(todo.complete)?'complete':''">
+				{{todo.description}}</span>
+				<a href="" ng-click="ctrl.showEditor(todo)">Edit</a>
+				<a href="" ng-click="ctrl.deleteTodo(todo)">Delete</a>
+				<form ng-if="todo.editing" ng-submit="ctrl.updateTodo(todo, false)">
+					<input type="text" ng-model="todo.description">
+				</form>
+			</li>
+		</ul>
+	</div>
+	
+	<div ng-controller="FilterCtrl as fctrl">
+		{{fctrl.text1 | uppercase}}<br>
+		{{fctrl.text2 | limitTo:8}}<br>
+		{{fctrl.date | date:'MM/dd/yy @ h:mm:ssa'}}
+		<ul>
+			<li ng-repeat="product in fctrl.products | orderBy:'-price'">
+				{{product.name}}: {{product.price | currency}}
+			</li>
+		</ul>
+	</div>
+
+	you don't need to be inside a controller to use angular stuff, just inside an ng-app element
+	{{ 2 + 2 }}
+
+	<div ng-include="'partials/included.html'"></div>
+
+	<div ng-include="'partial2.html'"></div>
+	<script type="text/ng-template" id="partial2.html">
+		<h2 style="color: yellow">Here is a "template" that is in the html page itself</h2>
+	</script>
+
+	<div ng-controller="PartialController as pctrl">
+		<button ng-click="pctrl.changeInclude()">Click Me to change it</button>
+		<div ng-include="pctrl.includePath"></div>
+	</div>
+
+	what follows is a custom HTML element <br>
+	<product-cat></product-cat>
+
 
 </body>
 </html>

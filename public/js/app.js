@@ -88,3 +88,51 @@ app.controller('MyController', ['$http', function($http) {
 
 }])
 
+
+app.controller('FilterCtrl', [function() {
+	this.text1 = 'TEXT 1 is great i like cats';
+	this.text2 = "My Description";
+	this.date = new Date().getTime();
+	this.products = [
+		{
+			name: 'product1',
+			price: 5
+		},
+		{
+			name: 'product2',
+			price: 4
+		},
+		{
+			name: 'product3',
+			price: 10
+		}
+	]
+
+}])
+
+
+app.controller('PartialController', [function() {
+
+	this.includePath = 'partials/partial1.html';
+	this.changeInclude = function() {
+		//if i'm looking at p1
+		if(this.includePath==='partials/partial1.html') 
+			this.includePath = 'partials/partial2.html'
+		else this.includePath = 'partials/partial1.html'
+
+	}
+
+}])
+
+// making our own directive
+app.directive('productCat', function() {
+	return {
+		restrict: 'E', // E=element, A=attribute, C=class, M=comment, you can combine these
+		templateUrl: 'partials/product-title.html', // this template will replace directive element
+		controller: function() { //constructor function
+			this.name = "this text specified in controller of custom directive 'producTitle'"
+		},
+		controllerAs: 'title' // how it should be instantiated (i.e. Controller as title)
+	}
+})
+
