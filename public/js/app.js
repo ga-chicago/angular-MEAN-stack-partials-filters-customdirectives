@@ -39,15 +39,24 @@ app.controller('MyController', ['$http', function($http) {
 		}).then(function(res) {
 			console.log(res.data)//<--
 			controller.todos = res.data
+
+			//add a property to each todo for showing editor
+			controller.todos = controller.todos.map((todo, i) => {
+				todo.editing = false;
+				return todo				
+			})
+
+			console.log(controller.todos)
+
 		}, function(err) {
 			console.error(err)
 		})
 	}//IIFE
 	this.getTodos() // run funcction aimmediately 
 
-	this.updateTodo = function(todo) {
-		todo.complete = !todo.complete;
+	this.updateTodo = function(todo, toggling) {
 
+		if(toggling) todo.complete = !todo.complete;
 
 		$http({
 			method: 'PUT',
@@ -64,6 +73,18 @@ app.controller('MyController', ['$http', function($http) {
 
 	}
 
+	this.showEditor = function(todo) {
+		todo.editing = true;
+	}
+
+	this.deleteTodo = function(todo) {
+		$http({
+			method: 'DELETE',
+			url: '/todo/' + todo._id
+		}).then(function() {
+			controller.getTodos()
+		}, function(err) {})
+	}
 
 }])
 
