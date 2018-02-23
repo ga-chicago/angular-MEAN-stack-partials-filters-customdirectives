@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 require('./db/db')
 
+app.use(express.static('public'));
 app.use(bodyParser.json());
 
 const todoController = require('./controllers/ToDoController')
