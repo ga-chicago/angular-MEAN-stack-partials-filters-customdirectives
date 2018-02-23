@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+	console.log(req.body);
 	Todo.create(req.body, (err, createdTodo) => {
 		res.json(createdTodo);	
 	})

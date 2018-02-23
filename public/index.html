@@ -7,5 +7,15 @@
 </head>
 <body ng-controller="MyController as ctrl">
 	{{ ctrl.msg }}
+	<form ng-submit="ctrl.createTodo()">
+		<input ng-model="ctrl.description" type="text" placeholder="Enter todo here"><br />
+		Complete: <input type="checkbox" ng-model="ctrl.complete" />
+		<input type="submit" value="Create new todo">		
+	</form>
+
+	<ul>
+		<li ng-repeat="todo in ctrl.todos">{{todo.description}}</li>
+	</ul>
+
 </body>
 </html>
